@@ -6,7 +6,7 @@ class ListNode:
 
 class Solution:
     def reverseList(self, head: ListNode) -> ListNode:
-        return []
+        return None
 
 if __name__ == "__main__":
     head = [1,2,3,4,5]

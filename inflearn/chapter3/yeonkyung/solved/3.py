@@ -7,4 +7,5 @@ for _ in range(10):
         cards[l], cards[r] = cards[r], cards[l]
         l += 1
         r -= 1
-print(cards)
+for c in cards:
+    print(c, end=' ')

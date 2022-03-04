@@ -5,11 +5,11 @@ for _ in range(N):
 # print(place)
 
 arr = [[0 for _ in range(M)] for _ in range(N)]
-_x, _y = 0, 0
+start = []
 for i in range(N):
     for j in range(M):
         if place[i][j] == 9:
-            _x, _y = i, j
+            start.append((i, j))
 
 # 방향(서, 북, 동, 남, x), 물건
 def change(d, b):
@@ -52,22 +52,23 @@ def change(d, b):
         else:
             return d
 
-for d in ['w', 'n', 'e', 's']:
-    x, y = _x, _y
-    ch = d
-    while True:
-        if x < 0 or y < 0 or x >= N or y >= M:
-            break
-        arr[x][y] = 1
-        ch = change(ch, place[x][y])
-        if ch == 'x':
-            break
-        elif ch == 'w':
-            y -= 1
-        elif ch == 'n':
-            x -= 1
-        elif ch == 'e':
-            y += 1
-        elif ch == 's':
-            x += 1
+for _x, _y in start:
+    for d in ['w', 'n', 'e', 's']:
+        x, y = _x, _y
+        ch = d
+        while True:
+            if x < 0 or y < 0 or x >= N or y >= M:
+                break
+            arr[x][y] = 1
+            ch = change(ch, place[x][y])
+            if ch == 'x':
+                break
+            elif ch == 'w':
+                y -= 1
+            elif ch == 'n':
+                x -= 1
+            elif ch == 'e':
+                y += 1
+            elif ch == 's':
+                x += 1
 print(sum([sum(a) for a in arr]))

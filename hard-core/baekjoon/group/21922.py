@@ -4,47 +4,70 @@ for _ in range(N):
     place.append(list(map(int, input().split())))
 # print(place)
 
-arr = [[0 for _ in range(N)] for _ in range(M)]
-_x, _y = 5, 4
-# 서
-x, y = _x, _y
-while True:
-    if x < 0 or y < 0 or x >= N or y >= M:
-        break
-    arr[x][y] = 1
-    if place[x][y] == 1:
-        break
-    x -= 1
+arr = [[0 for _ in range(M)] for _ in range(N)]
+_x, _y = 0, 0
+for i in range(N):
+    for j in range(M):
+        if place[i][j] == 9:
+            _x, _y = i, j
 
-# 동
-x, y = _x, _y
-while True:
-    if x < 0 or y < 0 or x >= N or y >= M:
-        break
-    arr[x][y] = 1
-    if place[x][y] == 1:
-        break
-    x += 1
+# 방향(서, 북, 동, 남, x), 물건
+def change(d, b):
+    if b == 0:
+        return d
+    if d == 'w':
+        if b == 1:
+            return 'x'
+        elif b == 3:
+            return 's'
+        elif b == 4:
+            return 'n'
+        else:
+            return d
+    elif d == 'n':
+        if b == 2:
+            return 'x'
+        elif b == 3:
+            return 'e'
+        elif b == 4:
+            return 'w'
+        else:
+            return d
+    elif d == 'e':
+        if b == 1:
+            return 'x'
+        elif b == 3:
+            return 'n'
+        elif b == 4:
+            return 's'
+        else:
+            return d
+    elif d == 's':
+        if b == 2:
+            return 'x'
+        elif b == 3:
+            return 'w'
+        elif b == 4:
+            return 'e'
+        else:
+            return d
 
-# 남
-x, y = _x, _y
-while True:
-    if x < 0 or y < 0 or x >= N or y >= M:
-        break
-    arr[x][y] = 1
-    if place[x][y] == 2:
-        break
-    y += 1
-
-# 북
-x, y = _x, _y
-while True:
-    if x < 0 or y < 0 or x >= N or y >= M:
-        break
-    arr[x][y] = 1
-    if place[x][y] == 2:
-        break
-    y -= 1
-
-print(arr)
-
+for d in ['w', 'n', 'e', 's']:
+    x, y = _x, _y
+    ch = d
+    while True:
+        if x < 0 or y < 0 or x >= N or y >= M:
+            break
+        arr[x][y] = 1
+        ch = change(ch, place[x][y])
+        if ch == 'x':
+            break
+        elif ch == 'w':
+            y -= 1
+        elif ch == 'n':
+            x -= 1
+        elif ch == 'e':
+            y += 1
+        elif ch == 's':
+            x += 1
+print(sum([sum(a) for a in arr]))

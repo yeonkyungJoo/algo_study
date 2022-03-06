@@ -4,7 +4,7 @@ A = list(map(int, input().split()))
 
 dic = {}
 dp = [[0 for _ in range(N)] for _ in range(N)]
-for k in range(1, N):
+for k in range(1, N, 2):
     # 시작
     for i in range(0, N):
         if i+k < N:

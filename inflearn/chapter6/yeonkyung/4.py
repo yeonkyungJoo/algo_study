@@ -1,27 +1,19 @@
-import sys
-def dfs(idx):
-    if idx == N:
-        total = 0
-        _total = 0
-        for i in range(N):
-            if ch[i] == 1:
-                total += nums[i]
-            else:
-                _total += nums[i]
-        if total == _total:
-            print('YES')
-            sys.exit()
+N = int(input())
+nums = list(map(int, input().split()))
+
+result = False
+def dfs(i, s1, s2):
+    global result
+    if i == N:
+        if s1 == s2:
+            result = True
         return
 
-    ch[idx] = 1
-    dfs(idx + 1)
-    ch[idx] = 0
-    dfs(idx + 1)
+    dfs(i+1, s1+nums[i], s2)
+    dfs(i+1, s1, s2+nums[i])
 
-if __name__ == "__main__":
-    N = int(input())
-    nums = list(map(int, input().split()))
-    ch = [0 for _ in range(N)]
-
-    dfs(0)
+dfs(0, 0, 0)
+if (result):
+    print('YES')
+else:
     print('NO')
